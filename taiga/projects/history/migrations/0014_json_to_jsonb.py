@@ -15,86 +15,16 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunSQL(
             """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="history_historyentry",
-                column_name="delete_comment_user",
-            ),
+                ALTER TABLE "history_historyentry"
+                   ALTER COLUMN "delete_comment_user" TYPE jsonb USING "delete_comment_user"::text::jsonb,
+                   ALTER COLUMN "comment_versions" TYPE jsonb USING "comment_versions"::text::jsonb,
+                   ALTER COLUMN "values_diff_cache" TYPE jsonb USING "values_diff_cache"::text::jsonb,
+                   ALTER COLUMN "user" TYPE jsonb USING "user"::text::jsonb,
+                   ALTER COLUMN "diff" TYPE jsonb USING "diff"::text::jsonb,
+                   ALTER COLUMN "snapshot" TYPE jsonb USING "snapshot"::text::jsonb,
+                   ALTER COLUMN "values" TYPE jsonb USING "values"::text::jsonb;
+            """,
             reverse_sql=migrations.RunSQL.noop
         ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="history_historyentry",
-                column_name="comment_versions",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="history_historyentry",
-                column_name="values_diff_cache",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN "{column_name}"
-                           TYPE jsonb
-                          USING "{column_name}"::text::jsonb;
-            """.format(
-                table_name="history_historyentry",
-                column_name="user",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="history_historyentry",
-                column_name="diff",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="history_historyentry",
-                column_name="snapshot",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="history_historyentry",
-                column_name="values",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
+
     ]

@@ -15,38 +15,11 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunSQL(
             """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="webhooks_webhooklog",
-                column_name="request_headers",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="webhooks_webhooklog",
-                column_name="request_data",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="webhooks_webhooklog",
-                column_name="response_headers",
-            ),
+                ALTER TABLE "webhooks_webhooklog"
+                   ALTER COLUMN "request_headers" TYPE jsonb USING "request_headers"::text::jsonb,
+                   ALTER COLUMN "request_data" TYPE jsonb USING "request_data"::text::jsonb,
+                   ALTER COLUMN "response_headers" TYPE jsonb USING "response_headers"::text::jsonb;
+            """,
             reverse_sql=migrations.RunSQL.noop
         ),
     ]

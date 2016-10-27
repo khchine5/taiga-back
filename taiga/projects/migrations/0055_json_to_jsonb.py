@@ -15,134 +15,25 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunSQL(
             """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="projects_projectmodulesconfig",
-                column_name="config",
-            ),
+                ALTER TABLE "projects_projectmodulesconfig"
+                   ALTER COLUMN "config" TYPE jsonb USING "config"::text::jsonb;
+            """,
             reverse_sql=migrations.RunSQL.noop
         ),
         migrations.RunSQL(
             """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="projects_projecttemplate",
-                column_name="roles",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="projects_projecttemplate",
-                column_name="default_options",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="projects_projecttemplate",
-                column_name="epic_statuses",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="projects_projecttemplate",
-                column_name="us_statuses",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="projects_projecttemplate",
-                column_name="points",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="projects_projecttemplate",
-                column_name="task_statuses",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="projects_projecttemplate",
-                column_name="issue_statuses",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="projects_projecttemplate",
-                column_name="issue_types",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="projects_projecttemplate",
-                column_name="priorities",
-            ),
-            reverse_sql=migrations.RunSQL.noop
-        ),
-        migrations.RunSQL(
-            """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
-                           TYPE jsonb
-                          USING {column_name}::text::jsonb;
-            """.format(
-                table_name="projects_projecttemplate",
-                column_name="severities",
-            ),
+                ALTER TABLE "projects_projecttemplate"
+                   ALTER COLUMN "roles" TYPE jsonb USING "roles"::text::jsonb,
+                   ALTER COLUMN "default_options" TYPE jsonb USING "default_options"::text::jsonb,
+                   ALTER COLUMN "epic_statuses" TYPE jsonb USING "epic_statuses"::text::jsonb,
+                   ALTER COLUMN "us_statuses" TYPE jsonb USING "us_statuses"::text::jsonb,
+                   ALTER COLUMN "points" TYPE jsonb USING "points"::text::jsonb,
+                   ALTER COLUMN "task_statuses" TYPE jsonb USING "task_statuses"::text::jsonb,
+                   ALTER COLUMN "issue_statuses" TYPE jsonb USING "issue_statuses"::text::jsonb,
+                   ALTER COLUMN "issue_types" TYPE jsonb USING "issue_types"::text::jsonb,
+                   ALTER COLUMN "priorities" TYPE jsonb USING "priorities"::text::jsonb,
+                   ALTER COLUMN "severities" TYPE jsonb USING "severities"::text::jsonb;
+            """,
             reverse_sql=migrations.RunSQL.noop
         ),
     ]

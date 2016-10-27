@@ -73,7 +73,7 @@ class Migration(migrations.Migration):
                    SELECT COALESCE ((SELECT ('{' || string_agg(to_json("key") || ':' || "value", ',') || '}')
                                        FROM jsonb_each("json")
                                       WHERE "key" <> ALL ("keys_to_delete")),
-                                    '{}')::jsonb $function$;
+                                    '{}')::text::jsonb $function$;
             """,
             reverse_sql="""
         CREATE OR REPLACE FUNCTION "json_object_delete_keys"("json" json, VARIADIC "keys_to_delete" text[])
