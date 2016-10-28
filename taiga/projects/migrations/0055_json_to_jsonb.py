@@ -16,23 +16,23 @@ class Migration(migrations.Migration):
         migrations.RunSQL(
             """
                 ALTER TABLE "projects_projectmodulesconfig"
-                   ALTER COLUMN "config" TYPE jsonb USING "config"::text::jsonb;
+                   ALTER COLUMN "config" TYPE jsonb USING to_jsonb("config"::text)::jsonb;
             """,
             reverse_sql=migrations.RunSQL.noop
         ),
         migrations.RunSQL(
             """
                 ALTER TABLE "projects_projecttemplate"
-                   ALTER COLUMN "roles" TYPE jsonb USING "roles"::text::jsonb,
-                   ALTER COLUMN "default_options" TYPE jsonb USING "default_options"::text::jsonb,
-                   ALTER COLUMN "epic_statuses" TYPE jsonb USING "epic_statuses"::text::jsonb,
-                   ALTER COLUMN "us_statuses" TYPE jsonb USING "us_statuses"::text::jsonb,
-                   ALTER COLUMN "points" TYPE jsonb USING "points"::text::jsonb,
-                   ALTER COLUMN "task_statuses" TYPE jsonb USING "task_statuses"::text::jsonb,
-                   ALTER COLUMN "issue_statuses" TYPE jsonb USING "issue_statuses"::text::jsonb,
-                   ALTER COLUMN "issue_types" TYPE jsonb USING "issue_types"::text::jsonb,
-                   ALTER COLUMN "priorities" TYPE jsonb USING "priorities"::text::jsonb,
-                   ALTER COLUMN "severities" TYPE jsonb USING "severities"::text::jsonb;
+                   ALTER COLUMN "roles" TYPE jsonb USING to_jsonb("roles"::text)::jsonb,
+                   ALTER COLUMN "default_options" TYPE jsonb USING to_jsonb("default_options"::text)::jsonb,
+                   ALTER COLUMN "epic_statuses" TYPE jsonb USING to_jsonb("epic_statuses"::text)::jsonb,
+                   ALTER COLUMN "us_statuses" TYPE jsonb USING to_jsonb("us_statuses"::text)::jsonb,
+                   ALTER COLUMN "points" TYPE jsonb USING to_jsonb("points"::text)::jsonb,
+                   ALTER COLUMN "task_statuses" TYPE jsonb USING to_jsonb("task_statuses"::text)::jsonb,
+                   ALTER COLUMN "issue_statuses" TYPE jsonb USING to_jsonb("issue_statuses"::text)::jsonb,
+                   ALTER COLUMN "issue_types" TYPE jsonb USING to_jsonb("issue_types"::text)::jsonb,
+                   ALTER COLUMN "priorities" TYPE jsonb USING to_jsonb("priorities"::text)::jsonb,
+                   ALTER COLUMN "severities" TYPE jsonb USING to_jsonb("severities"::text)::jsonb;
             """,
             reverse_sql=migrations.RunSQL.noop
         ),

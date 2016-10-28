@@ -15,10 +15,10 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunSQL(
             """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
+                ALTER TABLE "{table_name}"
+                   ALTER COLUMN "{column_name}"
                            TYPE jsonb
-                          USING {column_name}::text::jsonb;
+                          USING to_jsonb("{column_name}"::text)::jsonb;
             """.format(
                 table_name="users_authdata",
                 column_name="extra",

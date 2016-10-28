@@ -16,15 +16,14 @@ class Migration(migrations.Migration):
         migrations.RunSQL(
             """
                 ALTER TABLE "history_historyentry"
-                   ALTER COLUMN "delete_comment_user" TYPE jsonb USING "delete_comment_user"::text::jsonb,
-                   ALTER COLUMN "comment_versions" TYPE jsonb USING "comment_versions"::text::jsonb,
-                   ALTER COLUMN "values_diff_cache" TYPE jsonb USING "values_diff_cache"::text::jsonb,
-                   ALTER COLUMN "user" TYPE jsonb USING "user"::text::jsonb,
-                   ALTER COLUMN "diff" TYPE jsonb USING "diff"::text::jsonb,
-                   ALTER COLUMN "snapshot" TYPE jsonb USING "snapshot"::text::jsonb,
-                   ALTER COLUMN "values" TYPE jsonb USING "values"::text::jsonb;
+                   ALTER COLUMN "delete_comment_user" TYPE jsonb USING to_jsonb("delete_comment_user"::text)::jsonb,
+                   ALTER COLUMN "comment_versions" TYPE jsonb USING to_jsonb("comment_versions"::text)::jsonb,
+                   ALTER COLUMN "values_diff_cache" TYPE jsonb USING to_jsonb("values_diff_cache"::text)::jsonb,
+                   ALTER COLUMN "user" TYPE jsonb USING to_jsonb("user"::text)::jsonb,
+                   ALTER COLUMN "diff" TYPE jsonb USING to_jsonb("diff"::text)::jsonb,
+                   ALTER COLUMN "snapshot" TYPE jsonb USING to_jsonb("snapshot"::text)::jsonb,
+                   ALTER COLUMN "values" TYPE jsonb USING to_jsonb("values"::text)::jsonb;
             """,
             reverse_sql=migrations.RunSQL.noop
         ),
-
     ]

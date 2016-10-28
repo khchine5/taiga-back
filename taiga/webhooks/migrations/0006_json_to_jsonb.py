@@ -16,9 +16,9 @@ class Migration(migrations.Migration):
         migrations.RunSQL(
             """
                 ALTER TABLE "webhooks_webhooklog"
-                   ALTER COLUMN "request_headers" TYPE jsonb USING "request_headers"::text::jsonb,
-                   ALTER COLUMN "request_data" TYPE jsonb USING "request_data"::text::jsonb,
-                   ALTER COLUMN "response_headers" TYPE jsonb USING "response_headers"::text::jsonb;
+                   ALTER COLUMN "request_headers" TYPE jsonb USING to_jsonb("request_headers"::text)::jsonb,
+                   ALTER COLUMN "request_data" TYPE jsonb USING to_jsonb("request_data"::text)::jsonb,
+                   ALTER COLUMN "response_headers" TYPE jsonb USING to_jsonb("response_headers"::text)::jsonb;
             """,
             reverse_sql=migrations.RunSQL.noop
         ),

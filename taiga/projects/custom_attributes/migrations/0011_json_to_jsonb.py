@@ -14,10 +14,10 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunSQL(
             """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
+                ALTER TABLE "{table_name}"
+                   ALTER COLUMN "{column_name}"
                            TYPE jsonb
-                          USING {column_name}::text::jsonb;
+                          USING to_jsonb("{column_name}"::text)::jsonb;
             """.format(
                 table_name="custom_attributes_epiccustomattributesvalues",
                 column_name="attributes_values",
@@ -26,10 +26,10 @@ class Migration(migrations.Migration):
         ),
         migrations.RunSQL(
             """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
+                ALTER TABLE "{table_name}"
+                   ALTER COLUMN "{column_name}"
                            TYPE jsonb
-                          USING {column_name}::text::jsonb;
+                          USING to_jsonb("{column_name}"::text)::jsonb;
             """.format(
                 table_name="custom_attributes_userstorycustomattributesvalues",
                 column_name="attributes_values",
@@ -38,10 +38,10 @@ class Migration(migrations.Migration):
         ),
         migrations.RunSQL(
             """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
+                ALTER TABLE "{table_name}"
+                   ALTER COLUMN "{column_name}"
                            TYPE jsonb
-                          USING {column_name}::text::jsonb;
+                          USING to_jsonb("{column_name}"::text)::jsonb;
             """.format(
                 table_name="custom_attributes_taskcustomattributesvalues",
                 column_name="attributes_values",
@@ -50,10 +50,10 @@ class Migration(migrations.Migration):
         ),
         migrations.RunSQL(
             """
-                ALTER TABLE {table_name}
-                   ALTER COLUMN {column_name}
+                ALTER TABLE "{table_name}"
+                   ALTER COLUMN "{column_name}"
                            TYPE jsonb
-                          USING {column_name}::text::jsonb;
+                          USING to_jsonb("{column_name}"::text)::jsonb;
             """.format(
                 table_name="custom_attributes_issuecustomattributesvalues",
                 column_name="attributes_values",
