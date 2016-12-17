@@ -105,7 +105,8 @@ class OrderByFilterMixin(QueryParamsFilterMixin):
         if raw_fieldname in ["owner", "-owner", "assigned_to", "-assigned_to"]:
             raw_fieldname = "{}__full_name".format(raw_fieldname)
 
-        return super().filter_queryset(request, queryset.order_by(raw_fieldname), view)
+        # We need to add a default order if raw_fieldname gives rows with the same value
+        return super().filter_queryset(request, queryset.order_by(raw_fieldname, "-id"), view)
 
 
 class FilterBackend(OrderByFilterMixin):
@@ -526,6 +527,22 @@ class FinishDateFilter(BaseDateFilter):
     filter_name_base = "finish_date"
 
 
+class EstimatedStartFilter(BaseDateFilter):
+    filter_name_base = "estimated_start"
+
+
+class EstimatedFinishFilter(BaseDateFilter):
+    filter_name_base = "estimated_finish"
+
+
+class MilestoneEstimatedStartFilter(BaseDateFilter):
+    filter_name_base = "milestone__estimated_start"
+
+
+class MilestoneEstimatedFinishFilter(BaseDateFilter):
+    filter_name_base = "milestone__estimated_finish"
+
+
 #####################################################################
 # Text search filters
 #####################################################################
@@ -536,11 +553,11 @@ class QFilter(FilterBackend):
         if q:
             table = queryset.model._meta.db_table
             where_clause = ("""
-                to_tsvector('english_nostop',
+                to_tsvector('simple',
                             coalesce({table}.subject, '') || ' ' ||
                             coalesce(array_to_string({table}.tags, ' '), '') || ' ' ||
                             coalesce({table}.ref) || ' ' ||
-                            coalesce({table}.description, '')) @@ to_tsquery('english_nostop', %s)
+                            coalesce({table}.description, '')) @@ to_tsquery('simple', %s)
             """.format(table=table))
 
             queryset = queryset.extra(where=[where_clause], params=[to_tsquery(q)])
