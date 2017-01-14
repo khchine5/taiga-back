@@ -64,6 +64,12 @@ class BaseThrottle(object):
         """
         raise NotImplementedError(".allow_request() must be overridden")
 
+    def finalize(self, request, response, view):
+        """
+        Optionally, update the Trottling information based on de response.
+        """
+        return None
+
     def wait(self):
         """
         Optionally, return a recommended number of seconds to wait before
@@ -104,6 +110,12 @@ class SimpleRateThrottle(BaseThrottle):
         May return `None` if the request should not be throttled.
         """
         raise NotImplementedError(".get_cache_key() must be overridden")
+
+    def has_to_finalize(self, request, response, view):
+        """
+        Determine if the finalize method must be executed.
+        """
+        return self.rate is not None
 
     def get_rate(self):
         """
@@ -153,11 +165,15 @@ class SimpleRateThrottle(BaseThrottle):
         # throttle duration
         while self.history and self.history[-1] <= self.now - self.duration:
             self.history.pop()
-        if len(self.history) >= self.num_requests:
-            return self.throttle_failure()
-        return self.throttle_success()
 
-    def throttle_success(self):
+        if self.exceeded_throttling_restriction(request, view):
+            return self.throttle_failure()
+        return self.throttle_success(request, view)
+
+    def exceeded_throttling_restriction(self, request, view):
+        return len(self.history) >= self.num_requests
+
+    def throttle_success(self, request, view):
         """
         Inserts the current request's timestamp along with the key
         into the cache.

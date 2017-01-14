@@ -16,25 +16,24 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from .development import *
+from taiga.base import throttling
 
-CELERY_ENABLED = False
-CELERY_ALWAYS_EAGER = True
 
-MEDIA_ROOT = "/tmp"
+class MembershipsRateThrottle(throttling.ThrottleByActionMixin, throttling.UserRateThrottle):
+    scope = "create-memberships"
+    throttled_actions = ["create", "resend_invitation", "bulk_create"]
 
-EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
-INSTALLED_APPS = INSTALLED_APPS + [
-    "tests",
-]
+    def exceeded_throttling_restriction(self, request, view):
+        self.created_memberships = 0
+        if view.action in ["create", "resend_invitation"]:
+            self.created_memberships = 1
+        elif view.action == "bulk_create":
+            self.created_memberships = len(request.DATA.get("bulk_memberships", []))
+        return len(self.history) + self.created_memberships > self.num_requests
 
-REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
-    "anon": None,
-    "user": None,
-    "import-mode": None,
-    "import-dump-mode": None,
-    "create-memberships": None,
-    "login-fail": None,
-    "register-success": None,
-    "user-detail": None,
-}
+    def throttle_success(self, request, view):
+        for i in range(self.created_memberships):
+            self.history.insert(0, self.now)
+
+        self.cache.set(self.key, self.history, self.duration)
+        return True

@@ -440,6 +440,10 @@ REST_FRAMEWORK = {
         "user": None,
         "import-mode": None,
         "import-dump-mode": "1/minute",
+        "create-memberships": None,
+        "login-fail": None,
+        "register-success": None,
+        "user-detail": None,
     },
     "FILTER_BACKEND": "taiga.base.filters.FilterBackend",
     "EXCEPTION_HANDLER": "taiga.base.exceptions.exception_handler",
@@ -548,6 +552,8 @@ MAX_PRIVATE_PROJECTS_PER_USER = None # None == no limit
 MAX_PUBLIC_PROJECTS_PER_USER = None # None == no limit
 MAX_MEMBERSHIPS_PRIVATE_PROJECTS = None # None == no limit
 MAX_MEMBERSHIPS_PUBLIC_PROJECTS = None # None == no limit
+
+MAX_PENDING_MEMBERSHIPS = 30 # Max number of unconfirmed memberships in a project
 
 from .sr import *
 
